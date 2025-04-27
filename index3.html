@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CV - Asmar Seyidova</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f0f0;
+    }
+    .resume {
+      display: flex;
+      max-width: 1000px;
+      margin: 30px auto;
+      background: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .sidebar {
+      width: 30%;
+      background-color: #0b3d5c;
+      color: white;
+      padding: 20px;
+    }
+    .sidebar h2 {
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 5px;
+      margin-top: 20px;
+    }
+    .profile-photo {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+    .profile-photo img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid #fff;
+      object-fit: cover;
+      box-shadow: 0 0 10px rgba(0,0,0,0.15);
+    }
+    .content {
+      width: 70%;
+      padding: 30px;
+      color: #333;
+    }
+    h1 {
+      margin: 0;
+      font-size: 32px;
+    }
+    h3 {
+      margin-top: 5px;
+      color: #555;
+    }
+    section {
+      margin-top: 30px;
+    }
+    button {
+      padding: 8px 12px;
+      background-color: #0b3d5c;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+      margin-bottom: 15px;
+    }
+    button:hover {
+      background-color: #094266;
+    }
+  </style>
+</head>
+<body>
+  <div class="resume">
+    <aside class="sidebar">
+      <div class="profile-photo">
+        <img src="https://img.freepik.com/premium-photo/portrait-beautiful-young-woman-with-curly-hair_847439-4472.jpg" alt="Profile Photo">
+      </div>
+
+      <h2>CONTACT</h2>
+      <ul class="contact" id="contact-list"></ul>
+
+      <h2>EDUCATION</h2>
+      <div class="section" id="education-list"></div>
+      <button onclick="addDropdown('education-list', 'Education')">Add Education</button>
+
+      <h2>SKILLS</h2>
+      <ul class="skills" id="skills-list"></ul>
+      <button onclick="addDropdown('skills-list', 'Skill')">Add Skill</button>
+
+      <h2>LANGUAGES</h2>
+      <ul class="skills" id="languages-list"></ul>
+    </aside>
+
+    <main class="content">
+      <h1></h1>
+      <h3></h3>
+
+      <section>
+        <h2>PROFILE</h2>
+        <p id="profile-description"></p>
+      </section>
+
+      <section>
+        <h2>WORK EXPERIENCE</h2>
+        <div id="work-list"></div>
+        <button onclick="addDropdown('work-list', 'Work')">Add Work</button>
+      </section>
+
+      <section>
+        <h2>REFERENCE</h2>
+        <div id="reference-list"></div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const profile = {
+      name: "Asmar Seyidova",
+      title: "Web-Designer",
+      description: "As a fresh university graduate with a degree in Web Development and Design, I am enthusiastic about merging creativity with technology to produce impactful web solutions...",
+      contact: [
+        "📞 +094 555 55 55",
+        "✉️ esmerseyidova11@gmail.com",
+        "🌐 www.esy.com",
+        "📍 Baku ,Azerbaijan"
+      ],
+      education: [
+        { year: "2024 – 2028", school: "Azerbaijan Technical University" },
+        { year: "2029 – 2033", school: "Business University" }
+      ],
+      skills: ["Design", "Public Relations", "Teamwork", "Communication", "Critical Thinking"],
+      languages: ["English (Fluent)", "Turkish (Advanced)"],
+      workExperience: [
+        {
+          position: "Intern - Web Design Assistant",
+          company: "DESIGNER & Specialist",
+          period: "2025 – Present",
+          duties: [
+            "Created mockups and prototypes for various projects.",
+            "Collaborated with senior designers to optimize website layouts.",
+            "Worked on SEO principles to improve rankings."
+          ]
+        },
+        {
+          position: "Freelance Web Designer",
+          company: "Azercell",
+          period: "2026 – 2027",
+          duties: [
+            "Designed responsive websites for local businesses.",
+            "Integrated e-commerce platforms and optimized for mobile."
+          ]
+        }
+      ],
+      references: [
+        { name: "Aidan Valiyeva", role: "CTO, Wonder Inc.", email: "aiityv@email.com" },
+        { name: "Oguz Seidov", role: "CEO, Wonder Inc.", email: "oguz@email.com" }
+      ]
+    };
+
+    function renderList(containerId, items) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = "";
+      items.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        container.appendChild(li);
+      });
+    }
+
+    function renderEducation() {
+      const container = document.getElementById("education-list");
+      container.innerHTML = "";
+      profile.education.forEach(item => {
+        const p = document.createElement("p");
+        p.innerHTML = `<strong>${item.year}</strong><br>${item.school}`;
+        container.appendChild(p);
+      });
+    }
+
+    function renderWorkExperience() {
+      const container = document.getElementById("work-list");
+      container.innerHTML = "";
+      profile.workExperience.forEach(job => {
+        const div = document.createElement("div");
+        div.classList.add("job");
+        div.innerHTML = `
+          <h4>${job.position} – ${job.company} <span>${job.period}</span></h4>
+          <ul>${job.duties.map(duty => `<li>${duty}</li>`).join("")}</ul>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function renderReferences() {
+      const container = document.getElementById("reference-list");
+      container.innerHTML = "";
+      profile.references.forEach(ref => {
+        const p = document.createElement("p");
+        p.innerHTML = `<strong>${ref.name}</strong> – ${ref.role} – ${ref.email}`;
+        container.appendChild(p);
+      });
+    }
+
+    function addItem(type) {
+      const newItem = prompt(`Enter new ${type}:`);
+      if (!newItem) return;
+
+      switch (type) {
+        case 'Skill':
+          profile.skills.push(newItem);
+          renderList("skills-list", profile.skills);
+          break;
+        case 'Education':
+          const year = prompt("Enter year range:");
+          const school = prompt("Enter school name:");
+          profile.education.push({ year, school });
+          renderEducation();
+          break;
+        case 'Work':
+          const position = prompt("Enter position:");
+          const company = prompt("Enter company:");
+          const period = prompt("Enter period:");
+          const duty = prompt("Enter one main duty:");
+          profile.workExperience.push({
+            position,
+            company,
+            period,
+            duties: [duty]
+          });
+          renderWorkExperience();
+          break;
+      }
+    }
+
+    // Initial rendering
+    document.querySelector("h1").innerHTML = `<strong>${profile.name.split(' ')[0]}</strong> ${profile.name.split(' ')[1]}`;
+    document.querySelector("h3").textContent = profile.title;
+    document.getElementById("profile-description").textContent = profile.description;
+
+    renderList("contact-list", profile.contact);
+    renderList("skills-list", profile.skills);
+    renderList("languages-list", profile.languages);
+    renderEducation();
+    renderWorkExperience();
+    renderReferences();
+
+    // Hook button event
+    window.addDropdown = (id, type) => addItem(type);
+  </script>
+</body>
+</html>
+
+
